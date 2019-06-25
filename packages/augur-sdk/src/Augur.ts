@@ -9,6 +9,7 @@ import { Provider } from "./ethereum/Provider";
 import { isSubscriptionEventName, SubscriptionEventNames } from "./constants";
 import { Trade, PlaceTradeDisplayParams, SimulateTradeData } from "./api/Trade";
 import { ContractDependenciesEthers, TransactionStatusCallback } from "contract-dependencies-ethers";
+import { Accounts } from "./state/getter/Accounts";
 import { Markets } from "./state/getter/Markets";
 import { SyncData } from "./state/getter/sync-data";
 import { Trading } from "./state/getter/Trading";
@@ -205,7 +206,7 @@ export class Augur<TProvider extends Provider = Provider> {
   }
 
   public getTradingHistory = this.bindTo(Trading.getTradingHistory);
-  public getAllOrders = this.bindTo(Trading.getAllOrders);
+  public getAllOrders = this.bindTo(Accounts.getAllOrders);
   public getTradingOrders = this.bindTo(Trading.getOrders);
 
   public async simulateTrade(params: PlaceTradeDisplayParams): Promise<SimulateTradeData> {

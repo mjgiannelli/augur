@@ -1,6 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 import { DB } from '../db/DB';
 import { Getter } from './Router';
+import { Order, Orders, OutcomeParam, Trading } from '@augurproject/sdk/src/state/getter/Trading';
 import {
   MarketType,
   MarketCreatedLog,
@@ -18,10 +19,10 @@ import {
   convertOnChainPriceToDisplayPrice,
 } from '../../index';
 import { toAscii } from '../utils/utils';
+import { MarketInfoReportingState, SECONDS_IN_A_DAY } from '@augurproject/sdk/src/constants';
 
 import * as _ from 'lodash';
 import * as t from 'io-ts';
-import { Order, Orders, OutcomeParam, Trading } from './Trading';
 
 const getMarketsParamsSpecific = t.intersection([
   t.type({
@@ -40,25 +41,11 @@ const getMarketsParamsSpecific = t.intersection([
   }),
 ]);
 
-export const SECONDS_IN_A_DAY = 86400;
-
 export interface MarketInfoOutcome {
   id: number;
   price: string | null;
   description: string;
   volume: string;
-}
-
-export enum MarketInfoReportingState {
-  PRE_REPORTING = 'PRE_REPORTING',
-  DESIGNATED_REPORTING = 'DESIGNATED_REPORTING',
-  OPEN_REPORTING = 'OPEN_REPORTING',
-  CROWDSOURCING_DISPUTE = 'CROWDSOURCING_DISPUTE',
-  AWAITING_NEXT_WINDOW = 'AWAITING_NEXT_WINDOW',
-  FINALIZED = 'FINALIZED',
-  FORKING = 'FORKING',
-  AWAITING_NO_REPORT_MIGRATION = 'AWAITING_NO_REPORT_MIGRATION',
-  AWAITING_FORK_MIGRATION = 'AWAITING_FORK_MIGRATION',
 }
 
 export interface MarketInfo {

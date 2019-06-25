@@ -2,6 +2,7 @@ import { BigNumber } from "bignumber.js";
 import { DB } from "../db/DB";
 import { Getter } from "./Router";
 import {
+  Address,
   CompleteSetsPurchasedLog,
   CompleteSetsSoldLog,
   DisputeCrowdsourcerContributionLog,
@@ -15,10 +16,12 @@ import {
   OrderType,
   MarketType
 } from "../logs/types";
+import { filterMarketsByReportingState, MakerTaker } from "@augurproject/sdk/src/state/getter/Trading";
 import { SortLimit } from "./types";
-import { Augur } from "../../index";
-import { compareObjects } from "../../utils";
+import { Augur } from "@augurproject/sdk/src/index";
+import { compareObjects, convertOnChainAmountToDisplayAmount, numTicksToTickSize } from "../../utils";
 import { toAscii } from "../utils/utils";
+import * as _ from "lodash";
 
 import * as t from "io-ts";
 
@@ -33,7 +36,7 @@ export enum Action {
   DISPUTE = "DISPUTE",
   INITIAL_REPORT = "INITIAL_REPORT",
   MARKET_CREATION = "MARKET_CREATION",
-  COMPLETE_SETS  = "COMPLETE_SETS"
+  COMPLETE_SETS = "COMPLETE_SETS"
 };
 
 export enum Coin {
@@ -69,12 +72,28 @@ export interface AccountTransaction {
   transactionHash: string;
 };
 
+export const AllOrdersParams = t.partial({
+  account: t.string,
+  ignoreReportingStates: t.array(t.string),
+  makerTaker: MakerTaker
+});
+
+export interface AllOrders {
+  [orderId: string]: {
+    orderId: Address;
+    tokensEscrowed: string;
+    sharesEscrowed: string;
+    marketId: Address;
+  }
+}
+
 export interface MarketCreatedInfo {
   [key: string]: MarketCreatedLog;
 }
 
 export class Accounts<TBigNumber> {
   public static GetAccountTransactionHistoryParams = t.intersection([GetAccountTransactionHistoryParamsSpecific, SortLimit]);
+  public static GetAllOrdersParams = AllOrdersParams;
 
   @Getter("GetAccountTransactionHistoryParams")
   public static async getAccountTransactionHistory<TBigNumber>(augur: Augur, db: DB, params: t.TypeOf<typeof Accounts.GetAccountTransactionHistoryParams>): Promise<Array<AccountTransaction>> {
@@ -261,6 +280,50 @@ export class Accounts<TBigNumber> {
       end = allFormattedLogs.length;
     }
     return allFormattedLogs.slice(start, end);
+  }
+
+  @Getter("GetAllOrdersParams")
+  public static async getAllOrders(augur: Augur, db: DB, params: t.TypeOf<typeof Accounts.GetAllOrdersParams>): Promise<AllOrders> {
+    if (!params.account) {
+      throw new Error("'getAllOrders' requires an 'account' param be provided");
+    }
+    if (!params.makerTaker) {
+      params.makerTaker = "either";
+    }
+
+    const request = {
+      selector: {
+        amount: { $gt: "0x00" }
+      }
+    };
+    if (params.makerTaker === "either") request.selector = Object.assign(request.selector, { $or: [ { orderCreator: params.account }, {orderFiller: params.account } ] });
+    if (params.makerTaker === "maker") request.selector = Object.assign(request.selector, { orderCreator: params.account });
+    if (params.makerTaker === "taker") request.selector = Object.assign(request.selector, { orderFiller: params.account });
+
+    const currentOrdersResponse = await db.findCurrentOrderLogs(request);
+
+    const marketIds = _.map(currentOrdersResponse, "market");
+    const markets = await filterMarketsByReportingState(marketIds, db, params.ignoreReportingStates);
+
+    return currentOrdersResponse.reduce((orders: AllOrders, orderEventDoc: ParsedOrderEventLog) => {
+      const marketDoc = markets[orderEventDoc.market];
+      if (!marketDoc) return orders;
+      const minPrice = new BigNumber(marketDoc.prices[0]);
+      const maxPrice = new BigNumber(marketDoc.prices[1]);
+      const numTicks = new BigNumber(marketDoc.numTicks);
+      const tickSize = numTicksToTickSize(numTicks, minPrice, maxPrice);
+      const marketId = orderEventDoc.market;
+      const orderId = orderEventDoc.orderId;
+      const sharesEscrowed = convertOnChainAmountToDisplayAmount(new BigNumber(orderEventDoc.sharesEscrowed, 16), tickSize).toString(10);
+      const tokensEscrowed = new BigNumber(orderEventDoc.tokensEscrowed, 16).dividedBy(10 ** 18).toString(10);
+      orders[orderId] = {
+        orderId,
+        tokensEscrowed,
+        sharesEscrowed,
+        marketId
+      };
+      return orders;
+    }, {} as AllOrders);
   }
 
   static async getMarketCreatedInfo<TBigNumber>(db: DB, transactionLogs: Array<ParsedOrderEventLog|TradingProceedsClaimedLog|DisputeCrowdsourcerRedeemedLog|InitialReporterRedeemedLog|DisputeCrowdsourcerContributionLog|InitialReportSubmittedLog|CompleteSetsPurchasedLog|CompleteSetsSoldLog>): Promise<MarketCreatedInfo> {

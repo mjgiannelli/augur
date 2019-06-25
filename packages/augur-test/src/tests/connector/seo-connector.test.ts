@@ -13,9 +13,9 @@ import { DB } from "@augurproject/sdk/build/state/db/DB";
 import { EthersProvider } from "@augurproject/ethersjs-provider";
 import { EventLogDBRouter } from "@augurproject/sdk/build/state/db/EventLogDBRouter";
 import { BlockAndLogStreamerListener } from "@augurproject/sdk/build/state/db/BlockAndLogStreamerListener";
-import { Markets, SECONDS_IN_A_DAY } from "@augurproject/sdk/build/state/getter/Markets";
+import { Markets } from "@augurproject/sdk/build/state/getter/Markets";
 import { SEOConnector } from "@augurproject/sdk/build/connector/seo-connector";
-import { SubscriptionEventNames } from "@augurproject/sdk/build//constants";
+import { SECONDS_IN_A_DAY, SubscriptionEventNames } from "@augurproject/sdk/build/constants";
 
 let connector: SEOConnector;
 let provider: EthersProvider;

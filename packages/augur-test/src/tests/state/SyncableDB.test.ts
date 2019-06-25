@@ -5,9 +5,6 @@ import { ACCOUNTS, deployContracts, makeDbMock } from "../../libs";
 import { stringTo32ByteHex } from "../../libs/Utils";
 import { toAscii } from "@augurproject/sdk/build/state/utils/utils";
 
-// because flexsearch is a UMD type lib
-import FlexSearch = require("flexsearch");
-
 const mock = makeDbMock();
 
 beforeEach(async () => {

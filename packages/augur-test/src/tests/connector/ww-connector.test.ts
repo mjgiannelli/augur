@@ -10,7 +10,8 @@ import { BigNumber } from "bignumber.js";
 import { Contracts as compilerOutput } from "@augurproject/artifacts";
 import { DB } from "@augurproject/sdk/build/state/db/DB";
 import { EthersProvider } from "@augurproject/ethersjs-provider";
-import { Markets, SECONDS_IN_A_DAY } from "@augurproject/sdk/build/state/getter/Markets";
+import { Markets } from "@augurproject/sdk/build/state/getter/Markets";
+import { SECONDS_IN_A_DAY } from '@augurproject/sdk/src/constants';
 // import { WebWorkerConnector } from "@augurproject/sdk/build/connector/ww-connector";
 import { SubscriptionEventNames } from "@augurproject/sdk/build/constants";
 
