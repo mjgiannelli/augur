@@ -49,66 +49,60 @@ describe('State API :: Markets :: ', () => {
     const highFeePerCashInAttoCash = new BigNumber(10).pow(18).div(10); // 10% creator fee
     const affiliateFeeDivisor = new BigNumber(0);
     const designatedReporter = john.account;
-    const yesNoMarket1 = await john.createYesNoMarket(
-      universe,
+    const yesNoMarket1 = await john.createYesNoMarket({
       endTime,
-      lowFeePerCashInAttoCash,
+      feePerCashInAttoCash: lowFeePerCashInAttoCash,
       affiliateFeeDivisor,
       designatedReporter,
-      'yesNo topic 1',
-      '{"description": "yesNo description 1", "longDescription": "yesNo longDescription 1", "tags": ["yesNo tag1-1", "yesNo tag1-2", "yesNo tag1-3"]}'
-    );
-    const yesNoMarket2 = await john.createYesNoMarket(
-      universe,
+      topic: 'yesNo topic 1',
+      extraInfo: '{"description": "yesNo description 1", "longDescription": "yesNo longDescription 1", "tags": ["yesNo tag1-1", "yesNo tag1-2", "yesNo tag1-3"]}'
+    });
+    const yesNoMarket2 = await john.createYesNoMarket({
       endTime,
-      lowFeePerCashInAttoCash,
+      feePerCashInAttoCash: lowFeePerCashInAttoCash,
       affiliateFeeDivisor,
       designatedReporter,
-      'yesNo topic 2',
-      '{"description": "yesNo description 2", "longDescription": "yesNo longDescription 2", "tags": ["yesNo tag2-1", "yesNo tag2-2", "yesNo tag2-3"]}'
-    );
-    const categoricalMarket1 = await john.createCategoricalMarket(
-      universe,
+      topic: 'yesNo topic 2',
+      extraInfo: '{"description": "yesNo description 2", "longDescription": "yesNo longDescription 2", "tags": ["yesNo tag2-1", "yesNo tag2-2", "yesNo tag2-3"]}'
+    });
+    const categoricalMarket1 = await john.createCategoricalMarket({
       endTime,
-      lowFeePerCashInAttoCash,
+      feePerCashInAttoCash: lowFeePerCashInAttoCash,
       affiliateFeeDivisor,
       designatedReporter,
-      [stringTo32ByteHex('A'), stringTo32ByteHex('B'), stringTo32ByteHex('C')],
-      'categorical topic 1',
-      '{"description": "categorical description 1", "longDescription": "categorical longDescription 1", "tags": ["categorical tag1-1", "categorical tag1-2", "categorical tag1-3"]}'
-    );
-    const categoricalMarket2 = await john.createCategoricalMarket(
-      universe,
+      outcomes: [stringTo32ByteHex('A'), stringTo32ByteHex('B'), stringTo32ByteHex('C')],
+      topic: 'categorical topic 1',
+      extraInfo: '{"description": "categorical description 1", "longDescription": "categorical longDescription 1", "tags": ["categorical tag1-1", "categorical tag1-2", "categorical tag1-3"]}'
+    });
+    const categoricalMarket2 = await john.createCategoricalMarket({
       endTime,
-      highFeePerCashInAttoCash,
+      feePerCashInAttoCash: highFeePerCashInAttoCash,
       affiliateFeeDivisor,
       designatedReporter,
-      [stringTo32ByteHex('A'), stringTo32ByteHex('B'), stringTo32ByteHex('C')],
-      'categorical topic 2',
-      '{"description": "categorical description 2", "longDescription": "categorical longDescription 2", "tags": ["categorical tag2-1", "categorical tag2-2", "categorical tag2-3"]}'
-    );
-    const scalarMarket1 = await john.createScalarMarket(
-      universe,
+      outcomes: [stringTo32ByteHex('A'), stringTo32ByteHex('B'), stringTo32ByteHex('C')],
+      topic: 'categorical topic 2',
+      extraInfo: '{"description": "categorical description 2", "longDescription": "categorical longDescription 2", "tags": ["categorical tag2-1", "categorical tag2-2", "categorical tag2-3"]}'
+    });
+    const scalarMarket1 = await john.createScalarMarket({
       endTime,
-      highFeePerCashInAttoCash,
+      feePerCashInAttoCash: highFeePerCashInAttoCash,
       affiliateFeeDivisor,
       designatedReporter,
-      [new BigNumber(0), new BigNumber(100)],
-      new BigNumber(100),
-      'scalar topic 1',
-      '{"description": "scalar description 1", "longDescription": "scalar longDescription 1", "_scalarDenomination": "scalar denom 1", "tags": ["scalar tag1-1", "scalar tag1-2", "scalar tag1-3"]}'
-    );
-    const scalarMarket2 = await john.createScalarMarket(
-      universe,
+      prices: [new BigNumber(0), new BigNumber(100)],
+      numTicks: new BigNumber(100),
+      topic: 'scalar topic 1',
+      extraInfo: '{"description": "scalar description 1", "longDescription": "scalar longDescription 1", "_scalarDenomination": "scalar denom 1", "tags": ["scalar tag1-1", "scalar tag1-2", "scalar tag1-3"]}'
+    });
+    const scalarMarket2 = await john.createScalarMarket({
       endTime,
-      highFeePerCashInAttoCash,
+      feePerCashInAttoCash: highFeePerCashInAttoCash,
       affiliateFeeDivisor,
       designatedReporter,
-      [new BigNumber(0), new BigNumber(100)],
-      new BigNumber(100),
-      'scalar topic 2',
-      '{"description": "scalar description 2", "longDescription": "scalar longDescription 2", "_scalarDenomination": "scalar denom 2", "tags": ["scalar tag2-1", "scalar tag2-2", "scalar tag2-3"]}'
-    );
+      prices: [new BigNumber(0), new BigNumber(100)],
+      numTicks: new BigNumber(100),
+      topic: 'scalar topic 2',
+      extraInfo: '{"description": "scalar description 2", "longDescription": "scalar longDescription 2", "_scalarDenomination": "scalar denom 2", "tags": ["scalar tag2-1", "scalar tag2-2", "scalar tag2-3"]}'
+    });
 
     const actualDB = await db;
     await actualDB.sync(john.augur, mock.constants.chunkSize, 0);
@@ -431,11 +425,8 @@ describe('State API :: Markets :: ', () => {
   }, 120000);
 
   test(':getMarketPriceHistory', async () => {
-    const yesNoMarket = await john.createReasonableYesNoMarket(
-      john.augur.contracts.universe
-    );
+    const yesNoMarket = await john.createReasonableYesNoMarket();
     const categoricalMarket = await john.createReasonableMarket(
-      john.augur.contracts.universe,
       [stringTo32ByteHex('A'), stringTo32ByteHex('B'), stringTo32ByteHex('C')]
     );
 
@@ -655,9 +646,7 @@ describe('State API :: Markets :: ', () => {
   }, 120000);
 
   test(':getMarketPriceCandlesticks', async () => {
-    const yesNoMarket = await john.createReasonableYesNoMarket(
-      john.augur.contracts.universe
-    );
+    const yesNoMarket = await john.createReasonableYesNoMarket();
 
     const startTime = (await john.getTimestamp()).toNumber();
 
@@ -1084,14 +1073,10 @@ describe('State API :: Markets :: ', () => {
     let yesNoMarket: ContractInterfaces.Market;
 
     beforeAll(async () => {
-      yesNoMarket = await john.createReasonableYesNoMarket(
-        john.augur.contracts.universe
-      );
+      yesNoMarket = await john.createReasonableYesNoMarket();
 
       // Place Dummy orders to be filtered out.
-      const scalarMarket = await john.createReasonableScalarMarket(
-        john.augur.contracts.universe
-      );
+      const scalarMarket = await john.createReasonableScalarMarket();
 
       await john.placeOrder(
         scalarMarket.address,
@@ -1342,16 +1327,11 @@ describe('State API :: Markets :: ', () => {
   });
 
   test(':getMarketsInfo', async () => {
-    const yesNoMarket = await john.createReasonableYesNoMarket(
-      john.augur.contracts.universe
-    );
+    const yesNoMarket = await john.createReasonableYesNoMarket();
     const categoricalMarket = await john.createReasonableMarket(
-      john.augur.contracts.universe,
       [stringTo32ByteHex('A'), stringTo32ByteHex('B'), stringTo32ByteHex('C')]
     );
-    const scalarMarket = await john.createReasonableScalarMarket(
-      john.augur.contracts.universe
-    );
+    const scalarMarket = await john.createReasonableScalarMarket();
 
     // Place orders
 
