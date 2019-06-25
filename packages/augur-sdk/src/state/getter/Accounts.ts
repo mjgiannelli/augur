@@ -18,7 +18,7 @@ import {
 } from "../logs/types";
 import { filterMarketsByReportingState, MakerTaker } from "@augurproject/sdk/src/state/getter/Trading";
 import { SortLimit } from "./types";
-import { Augur } from "@augurproject/sdk/src/index";
+import { Augur } from "../../index";
 import { compareObjects, convertOnChainAmountToDisplayAmount, numTicksToTickSize } from "../../utils";
 import { toAscii } from "../utils/utils";
 import * as _ from "lodash";
