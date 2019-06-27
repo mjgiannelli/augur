@@ -6,7 +6,7 @@ augur.js' functions accept and return a variety of different objects, which are 
 <a name="AccountTransfer"></a>
 ### AccountTransfer  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`transactionHash`** (string) Hash returned by token transfer.
 * **`logIndex`** (number) Number of the log index position in the Ethereum block containing the transfer.
 * **`creationBlockNumber`** (number) Number of the Ethereum block containing the transfer.
@@ -24,7 +24,7 @@ augur.js' functions accept and return a variety of different objects, which are 
 <a name="AggregatedTradingPosition"></a>
 ### AggregatedTradingPosition  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`realized`** (string) Profit a user made for total historical positions which have _since been closed_ in a market outcome (i.e., `realized` is accrued profit for Shares a user previously owned).
 * **`unrealized`** (string) Percent profit a user would have on just their current `netPosition` if they were to close it at the last price for that Market Outcome. The last price is the most recent price paid by anyone trading on that Outcome.
 * **`total`** (string) `unrealized` plus `realized` (i.e., is the profit a user made on previously owned Shares in a Market Outcome, plus what they could make if they closed their current `netPosition` in that Outcome).
@@ -45,7 +45,7 @@ net position in that Market Outcome. This is a cashflow amount that the user rem
 
 Note: Other properties will be present in this object, depending on what event type it is. For a list of which values are logged for which events, refer to the [Event Types](#event-types) section.
 
-#### **Properties:** 
+#### **Properties:**
 * **`address`**  (string) The 20-byte Ethereum contract address of the contract that emitted this event log.
 * **`removed`**  (boolean) Whether the transaction this event was created from was removed from the Ethereum blockchain (due to an orphaned block) or never gotten to (due to a rejected transaction).
 * **`transactionHash`**  (string) Hash of the transactions this log was created from, as a 32-byte hexadecimal value.
@@ -59,17 +59,18 @@ Note: Other properties will be present in this object, depending on what event t
 <a name="BetterWorseOrders"></a>
 ### BetterWorseOrders  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`betterOrderId`** (string|null) ID of the order with the next best price over the specified order ID, as a hexadecimal string.
 * **`worseOrderId`** (string|null) ID of the order with the next worse price over the specified order ID, as a hexadecimal string.
 
 <a name="Category"></a>
 ### Category  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`category`** (string) Name of the Category.
 * **`nonFinalizedOpenInterest`** (string) Sum of Open Interest in non-Finalized Markets in this aggregation, in ETH.
 * **`openInterest`** (string) Sum of Open Interest in all Markets in this aggregation, in ETH.
+* **`liquidityTokens`** (string) Sum of [Liquidity Tokens](#liquidity-token) for all Markets in this aggregation for a given [Spread Percent](#spread-percent) (because a Market has one Liquidity Token per Spread Percent.)
 * **`tags`** (Array.&lt;<a href="#Tag">Tag</a>>) Array containing information about Markets with [Tags](#Tag) in this Category.
 
 <a name="ClaimReportingFeesForkedMarket"></a>
@@ -81,7 +82,7 @@ Note: Other properties will be present in this object, depending on what event t
 <a name="ClaimReportingFeesForkedMarketGasEstimates"></a>
 ### ClaimReportingFeesForkedMarketGasEstimates  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`crowdsourcerForkAndRedeem`** (Array.&lt;<a href="#GasEstimateInfo">GasEstimateInfo</a>>) Array of GasEstimateInfo objects containing gas estimates for each `DisputeCrowdsourcer.forkAndRedeem` call.
 * **`initialReporterForkAndRedeem`** (Array.&lt;<a href="#GasEstimateInfo">GasEstimateInfo</a>>)  Array of GasEstimateInfo objects containing gas estimates for each `InitialReporter.forkAndRedeem` call.
 * **`crowdsourcerRedeem`** (Array.&lt;<a href="#GasEstimateInfo">GasEstimateInfo</a>>)  Array of GasEstimateInfo objects containing gas estimates for each `DisputeCrowdsourcer.redeem` call.
@@ -91,7 +92,7 @@ Note: Other properties will be present in this object, depending on what event t
 <a name="ClaimReportingFeesForkedMarketResponse"></a>
 ### ClaimReportingFeesForkedMarketResponse  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`successfulTransactions`** (<a href="#SuccessfulTransactionsForkedMarket">SuccessfulTransactionsForkedMarket</a>|null) Object containing arrays of contract addresses whose transactions succeeded. Not set if `p.estimateGas` is true.
 * **`failedTransactions`** (<a href="#FailedTransactionsForkedMarket">FailedTransactionsForkedMarket</a>|null) Object containing arrays of contract addresses whose transactions failed. Not set if `p.estimateGas` is true.
 * **`gasEstimates`** (<a href="#ClaimReportingFeesForkedMarketGasEstimates">ClaimReportingFeesForkedMarketGasEstimates</a>|null) Object containing a breakdown of gas estimates for all reporting fee claim transactions. Not set if `p.estimateGas` is false.
@@ -109,7 +110,7 @@ Note: Other properties will be present in this object, depending on what event t
 <a name="ClaimReportingFeesNonforkedMarketsGasEstimates"></a>
 ### ClaimReportingFeesNonforkedMarketsGasEstimates  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`disavowCrowdsourcers`** (Array.&lt;<a href="#GasEstimateInfo">GasEstimateInfo</a>>) Array of GasEstimateInfo objects containing gas estimates for each `Market.disavowCrowdsourcers` call.
 * **`feeWindowRedeem`** (Array.&lt;<a href="#GasEstimateInfo">GasEstimateInfo</a>>) Array of GasEstimateInfo objects containing gas estimates for each `FeeWindow.redeem` call.
 * **`crowdsourcerRedeem`** (Array.&lt;<a href="#GasEstimateInfo">GasEstimateInfo</a>>) Array of GasEstimateInfo objects containing gas estimates for each `DisputeCrowdsourcer.redeem` call.
@@ -119,7 +120,7 @@ Note: Other properties will be present in this object, depending on what event t
 <a name="ClaimReportingFeesNonforkedMarketsResponse"></a>
 ### ClaimReportingFeesNonforkedMarketsResponse  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`successfulTransactions`** (<a href="#SuccessfulTransactionsNonforkedMarkets">SuccessfulTransactionsNonforkedMarkets</a>|null) Object containing arrays of which transactions succeeded. Not set if `p.estimateGas` is true.
 * **`failedTransactions`** (<a href="#FailedTransactionsNonforkedMarkets">FailedTransactionsNonforkedMarkets</a>|null) Object containing arrays of which transactions failed. Not set if `p.estimateGas` is true.
 * **`gasEstimates`** (<a href="#ClaimReportingFeesNonforkedMarketsGasEstimates">ClaimReportingFeesNonforkedMarketsGasEstimates</a>|null) Object containing a breakdown of gas estimates for all reporting fee redemption transactions. Not set if `p.estimateGas` is false.
@@ -127,7 +128,7 @@ Note: Other properties will be present in this object, depending on what event t
 <a name="ConnectOptions"></a>
 ### ConnectOptions  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`ethereumNode`** (<a href="#EthereumNode">EthereumNode</a>) Object containing information on how to connect to a desired Ethereum node, either locally or remotely (hosted).
 * **`augurNode`** (string) &lt;optional> Websocket address of an [Augur Node](#augur-node).
 
@@ -142,7 +143,7 @@ Note: Other properties will be present in this object, depending on what event t
 
 Serves as an enum for the state of a Dispute Token.
 
-#### **Properties:** 
+#### **Properties:**
 * **`ALL`** (string) Dispute Token can be in any state. (If no Dispute Token state is specified, this is the default value.)
 * **`UNCLAIMED`** (string) Dispute Token is in a Finalized Market, was staked on the correct Outcome, and has not been claimed yet.
 * **`UNFINALIZED`** (string) Dispute Token is in a Market that has not been Finalized.
@@ -150,7 +151,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="DisputeToken"></a>
 ### DisputeToken  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`disputeToken`** (string) Contract address of the Dispute Token, as a hexadecimal string.
 * **`marketId`** (string) Ethereum address of the Market, as a hexadecimal string.
 * **`payout0`** (number|null) Payout numerator 0 of the Dispute Token's payout set.
@@ -171,7 +172,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="EthereumNode"></a>
 ### EthereumNode  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`http`** (string|null) HTTP address of an Ethereum node.
 * **`httpAddresses`** (Array.&lt;string>|null) Array of HTTP Ethereum node addresses. (Can be used instead of `http` to specify a list of HTTP addresses to iterate through until a connection is established.)
 * **`ws`** (string|null) Websocket address of an Ethereum node.
@@ -183,7 +184,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="ExtraInfo"></a>
 ### ExtraInfo  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`resolutionSource`** (string|null) Source that should be referenced when determining the Outcome of a Market.
 * **`tags`** (Array.&lt;string>|null) Keywords used to tag the Market (maximum of 2).
 * **`longDescription`** (string|null) Additional information not included in description of the Market.
@@ -192,7 +193,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="FailedTransactionsForkedMarket"></a>
 ### FailedTransactionsForkedMarket  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`crowdsourcerForkAndRedeem`** (Array.&lt;string>) Array of DisputeCrowdsourcer contract addresses that had failed calls to `DisputeCrowdsourcer.forkAndRedeem`.
 * **`initialReporterForkAndRedeem`** (Array.&lt;string>) Array of InitialReporter contract addresses that had failed calls to `InitialReporter.forkAndRedeem`.
 * **`crowdsourcerRedeem`** (Array.&lt;string>) Array of DisputeCrowdsourcer contract addresses that had failed calls to `DisputeCrowdsourcer.redeem`.
@@ -201,7 +202,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="FailedTransactionsNonforkedMarkets"></a>
 ### FailedTransactionsNonforkedMarkets  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`disavowCrowdsourcers`** (Array.&lt;string>) Array of Market contract addresses that had failed calls to `Market.disavowCrowdsourcers`.
 * **`feeWindowRedeem`** (Array.&lt;string>) Array of FeeWindow contract addresses that had failed calls to `FeeWindow.redeem`.
 * **`crowdsourcerRedeem`** (Array.&lt;string>) Array of DisputeCrowdsourcer contract addresses that had failed calls to `DisputeCrowdsourcer.redeem`.
@@ -210,7 +211,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="FeeWindowCurrent"></a>
 ### FeeWindowCurrent  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`endTime`** (number) Unix timestamp for when the Fee Window begins.
 * **`feeToken`** (string) Ethereum address of the [Fee Token](#fee-token) for the current Fee Window.
 * **`feeWindow`** (string) Ethereum contract address of the Fee Window.
@@ -231,20 +232,20 @@ Serves as an enum for the state of a Dispute Token.
 <a name="FrozenFunds"></a>
 ### FrozenFunds  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`frozenFunds`** (string) ETH that a user has given up (locked in escrow or given to a counterparty) to obtain their current position.
 
 <a name="GasEstimateInfo"></a>
 ### GasEstimateInfo  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`address`** (string) Ethereum contract address to which `estimate` applies.
 * **`estimate`** (string) Gas estimate for calling a particular function at `address`.
 
 <a name="GasEstimatesForkedMarketTotals"></a>
 ### GasEstimatesForkedMarketTotals  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`crowdsourcerForkAndRedeem`** (string) Sum of gas estimates for all `DisputeCrowdsourcer.forkAndRedeem` calls.
 * **`initialReporterForkAndRedeem`** (string) Sum of gas estimates for all `InitialReporter.forkAndRedeem` calls.
 * **`crowdsourcerRedeem`** (string) Sum of gas estimates for all `DisputeCrowdsourcer.forkAndRedeem` calls.
@@ -254,7 +255,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="GasEstimatesNonforkedMarketsTotals"></a>
 ### GasEstimatesNonforkedMarketsTotals  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`disavowCrowdsourcers`** (string) Sum of gas estimates for all `Market.disavowCrowdsourcers` calls.
 * **`feeWindowRedeem`** (string) Sum of gas estimates for all `FeeWindow.redeem` calls.
 * **`crowdsourcerRedeem`** (string) Sum of gas estimates for all `DisputeCrowdsourcer.redeem` calls.
@@ -273,7 +274,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="GetReportingFeesInfo"></a>
 ### GetReportingFeesInfo  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`feeWindows`** (Array.&lt;string>) Array of FeeWindow contract addresses with unclaimed REP, as hexadecimal strings.
 * **`forkedMarket`** (<a href="#GetReportingFeesForkedMarket">GetReportingFeesForkedMarket</a>|null) GetReportingFeesForkedMarket object containing information about the Forked Market (if one exists in the specified universe).
 * **`nonforkedMarkets`** (Array.&lt;<a href="#GetReportingFeesNonforkedMarket">GetReportingFeesNonforkedMarket</a>>) Array of GetReportingFeesNonforkedMarket objects containing unclaimed ETH/REP.
@@ -294,7 +295,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="GetReportingFeesTotal"></a>
 ### GetReportingFeesTotal  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`lostRep`** (string) AttoREP lost in losing Initial Reports/Crowdsourcers for Markets containing unclaimed ETH/REP.
 * **`participationTokenRepStaked`** (string)  Total amount of REP the user currently has staked in Participation Tokens, in attoREP.
 * **`unclaimedEth`** (string) Unclaimed attoETH fees from buying Participation Tokens or staking in Initial Reports/Crowdsourcers (even if the Outcome is not the Winning Outcome) of the specified Universe.
@@ -307,7 +308,7 @@ Serves as an enum for the state of a Dispute Token.
 <a name="InitialReporter"></a>
 ### InitialReporter  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`marketId`** (string) Ethereum contract address of the Market for which the Initial Report was submitted.
 * **`blockNumber`** (number) Block number where the Initial Report took place.
 * **`logIndex`** (number) Log index where the Initial Report took place.
@@ -329,28 +330,28 @@ Serves as an enum for the state of a Dispute Token.
 <a name="MarketCreatorFee"></a>
 ### MarketCreatorFee  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`marketId`** (string) Ethereum contract address of the Market, as a hexadecimal string.
 * **`unclaimedFee`** (string) Unclaimed Creator Fee for the Market, in attoETH.
 
 <a name="MarketCreationCost"></a>
 ### MarketCreationCost  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`designatedReportNoShowReputationBond`** (string) Amount of Reputation required to incentivize the designated reporter to show up and report, as a base-10 string.
 * **`etherRequiredToCreateMarket`** (string) Sum of the Ether required to pay for Reporters' gas costs and the validity bond, as a base-10 string.
 
 <a name="MarketCreationCostBreakdown"></a>
 ### MarketCreationCostBreakdown  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`designatedReportNoShowReputationBond`** (string) Amount of Reputation required to incentivize the designated reporter to show up and report, as a base-10 string.
 * **`validityBond`** (string) Amount of Ether to be held on-contract and repaid when the Market is resolved with a non-Invalid Outcome, as a base-10 string.
 
 <a name="MarketInfo"></a>
 ### MarketInfo  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`id`** (string) Address of a Market, as a hexadecimal string.
 * **`universe`** (string) Address of a Universe, as a hexadecimal string.
 * **`marketType`** (string) Type of Market ("yesNo", "categorical", or "scalar").
@@ -397,13 +398,13 @@ Serves as an enum for the state of a Dispute Token.
 <a name="MarketPriceTimeSeries"></a>
 ### MarketPriceTimeSeries  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`Price`** (<a href="#SingleOutcomePriceTimeSeries">SingleOutcomePriceTimeSeries</a>) time-series for a single Outcome, keyed by Outcome ID.
 
 <a name="MarketTradingPosition"></a>
 ### MarketTradingPosition  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`realized`** (string) Profit a user made for total historical positions which have _since been closed_ in a market outcome (i.e., `realized` is accrued profit for Shares a user previously owned).
 * **`unrealized`** (string) Percent profit a user would have on just their current `netPosition` if they were to close it at the last price for that Market Outcome. The last price is the most recent price paid by anyone trading on that Outcome.
 * **`total`** (string) `unrealized` plus `realized` (i.e., is the profit a user made on previously owned Shares in a Market Outcome, plus what they could make if they closed their current `netPosition` in that Outcome).
@@ -426,7 +427,7 @@ net position in that Market Outcome. This is a cashflow amount that the user rem
 
 Authentication metadata for raw transactions.
 
-#### **Properties:** 
+#### **Properties:**
 * **`accountType`** (string) Type of account that is signing the transaction. Possible values include "privateKey", "ledger", "trezor", "edge", and "unlockedEthereumNode".
 * **`address`** (string) Ethereum address that is making the transaction, as a hexadecimal string.
 * **`signer`** (buffer|function) Private key buffer or a signing function provided by a hardware wallet, of the account initiating the transaction.
@@ -434,7 +435,7 @@ Authentication metadata for raw transactions.
 <a name="NoKeystoreAccount"></a>
 ### NoKeystoreAccount  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`address`** (string) This account's Ethereum address, as a hexadecimal string.
 * **`privateKey`** (buffer) The private key for this account.
 * **`derivedKey`** (buffer) The secret key (derived from the password) used to encrypt this account's private key.
@@ -442,14 +443,14 @@ Authentication metadata for raw transactions.
 <a name="NormalizedPayout"></a>
 ### NormalizedPayout  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`isInvalid`** (boolean|number) Whether the Outcome is Invalid.
 * **`payout`** (Array.&lt;number|string>) Payout Set for the Dispute Crowdsourcer.
 
 <a name="Order"></a>
 ### Order  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`orderId`** (string) ID of the order, as a 32-byte hexadecimal string.
 * **`shareToken`** (string) Contract address of the share token for which the order was placed, as a hexadecimal string.
 * **`transactionHash`** (string) Hash to look up the order transaction receipt.
@@ -477,7 +478,7 @@ Authentication metadata for raw transactions.
 
 Serves as an enum for the state of an order.
 
-#### **Properties:** 
+#### **Properties:**
 * **`ALL`** (string) Order is open, closed, or canceled. (If no order state is specified, this is the default value.)
 * **`OPEN`** (string) Order is available to be filled.
 * **`CLOSED`** (string) Order has been filled.
@@ -486,7 +487,7 @@ Serves as an enum for the state of an order.
 <a name="OutcomeInfo"></a>
 ### OutcomeInfo  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`id`** (number) Market Outcome ID
 * **`volume`** (string) Trading volume for this Outcome.
 * **`price`** (string) Last price at which the outcome was traded. If no trades have taken place in the Market, this value is set to the Market midpoint. If there is no volume on this Outcome, but there is volume on another Outcome in the Market, `price` is set to 0 for Yes/No Markets and Categorical Markets.
@@ -505,14 +506,14 @@ Serves as an enum for the state of an order.
 <a name="Report"></a>
 ### Report  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`initialReporter`** (<a href="#ReportingParticipant">ReportingParticipant</a>) ReportingParticipant object containing information about the Market's Initial Reporter.
 * **`crowdsourcers`** (Array.&lt;<a href="#ReportingParticipant">ReportingParticipant</a>>) Array of Crowdsourcers, as ReportingParticipant objects.
 
 <a name="ReportingParticipant"></a>
 ### ReportingParticipant  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`transactionHash`** (string) Hash to look up the reporting transaction receipt.
 * **`logIndex`** (number) Number of the log index position in the Ethereum block containing the reporting transaction.
 * **`creationBlockNumber`** (number) Number of the Ethereum block containing the reporting transaction.
@@ -533,7 +534,7 @@ Serves as an enum for the state of an order.
 
 Serves as an enum for the state of a Market.
 
-#### **Properties:** 
+#### **Properties:**
 * **`PRE_REPORTING`** (string) Market's end time has not yet come to pass.
 * **`DESIGNATED_REPORTING`** (string) Market's end time has occurred, and it is pending a Designated Report.
 * **`OPEN_REPORTING`** (string) The Designated Reporter failed to submit a Designated Report within the allotted time, causing the Market to enter the Open Reporting Phase.
@@ -547,7 +548,7 @@ Serves as an enum for the state of a Market.
 <a name="SimulatedTrade"></a>
 ### SimulatedTrade  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`sharesFilled`** (string) Number of Shares Filled by the trade.
 * **`settlementFees`** (string) Projected Settlement Fees paid on this trade, as a base-10 string.
 * **`sharesDepleted`** (string)  Projected number of Shares of the traded Outcome spent on this trade, as a base-10 string.
@@ -559,20 +560,20 @@ Serves as an enum for the state of a Market.
 <a name="SingleSideOrderBook"></a>
 ### SingleSideOrderBook  (Object)
 
-#### **Properties:** 
+#### **Properties:**
  * **`buy`** (Object|null) Buy (bid) <a href="#Order">Order</a> objects, keyed by Order ID.
  * **`sell`** (Object|null)  Sell (ask) <a href="#Order">Order</a> objects, keyed by Order ID.
 
 <a name="SingleOutcomePriceTimeSeries"></a>
 ### SingleOutcomePriceTimeSeries  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`Array`** (Array.&lt;<a href="#TimestampedPrice">TimestampedPrice</a>>) of timestamped price points for this Outcome.
 
 <a name="StakeDetails"></a>
 ### StakeDetails  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`payout`** (Array.&lt;number|string>) Payout Set for the Dispute Crowdsourcer.
 * **`isInvalid`** (boolean|number) Whether the Outcome is Invalid.
 * **`bondSizeCurrent`** (string|null) Amount of attoREP needed to successfully Dispute the Tentative Outcome of this Market in the current Fee Window. Is null if `tentativeWinning` is true.
@@ -588,17 +589,17 @@ Serves as an enum for the state of a Market.
 <a name="StakeInfo"></a>
 ### StakeInfo  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`marketId`** (string) Ethereum contract address of the Market.
-* **`disputeRound`** (number|null) Dispute round the Market is currently in. (This will be 1 until someone contributes to a Crowdsourcer.) 
+* **`disputeRound`** (number|null) Dispute round the Market is currently in. (This will be 1 until someone contributes to a Crowdsourcer.)
 * **`stakeCompletedTotal`** (string) Total attoREP that has been Staked in Crowdsourcers and in the First Public Report.
 * **`bondSizeOfNewStake`** (string) Amount of attoREP needed to Dispute the Tentative Outcome of the Market.
-* **`stakes`** (Array.&lt;<a href="#StakeDetails">StakeDetails</a>>) 
+* **`stakes`** (Array.&lt;<a href="#StakeDetails">StakeDetails</a>>)
 
 <a name="SuccessfulTransactionsForkedMarket"></a>
 ### SuccessfulTransactionsForkedMarket  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`crowdsourcerForkAndRedeem`** (Array.&lt;string>) Array of DisputeCrowdsourcer contract addresses that had succeessful calls to `DisputeCrowdsourcer.forkAndRedeem`.
 * **`initialReporterForkAndRedeem`** (Array.&lt;string>) Array of InitialReporter contract addresses that had succeessful calls to `InitialReporter.forkAndRedeem`.
 * **`crowdsourcerRedeem`** (Array.&lt;string>) Array of DisputeCrowdsourcer contract addresses that had succeessful calls to `DisputeCrowdsourcer.redeem`.
@@ -607,7 +608,7 @@ Serves as an enum for the state of a Market.
 <a name="SuccessfulTransactionsNonforkedMarkets"></a>
 ### SuccessfulTransactionsNonforkedMarkets  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 
 * **`disavowCrowdsourcers`** (Array.&lt;string>) Array of Market contract addresses that had successful calls to `Market.disavowCrowdsourcers`.
 * **`feeWindowRedeem`** (Array.&lt;string>) Array of FeeWindow contract addresses that had successful calls to `FeeWindow.redeem`.
@@ -617,19 +618,19 @@ Serves as an enum for the state of a Market.
 <a name="SyncData"></a>
 ### SyncData  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`addresses`** (Object) Object containing the 20-byte Ethereum contract addresses used by Augur, keyed by contract name.
 * **`highestBlock`** (<a href="#SyncDataBlock">SyncDataBlock</a>) The most recently added block on the Ethereum blockchain.
 * **`isSyncFinished`** (boolean) Whether Augur Node has finished synching with the Augur logs on the Ethereum blockchain.
 * **`lastProcessedBlock`** (<a href="#SyncDataBlock">SyncDataBlock</a>) The most recent block on the Ethereum blockchain that has been processed by Augur Node and stored in its database.
 * **`netId`** (string) Network ID that Augur Node is connected to. (This is the same ID as `net_version`.)
-* **`net_version`** (string) Network ID that Augur Node is connected to. 
+* **`net_version`** (string) Network ID that Augur Node is connected to.
 * **`version`** (string) Version of the Augur smart contracts.
 
 <a name="SyncDataBlock"></a>
 ### SyncDataBlock  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`hash`** (string) Block hash of the block on the Ethereum blockchain, as a 32-byte hexadecimal value.
 * **`number`** (number) Block number.
 * **`timestamp`** (number) Unix timestamp when the block was created.
@@ -637,7 +638,7 @@ Serves as an enum for the state of a Market.
 <a name="Tag"></a>
 ### Tag  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`nonFinalizedOpenInterest`** (string) Sum of Open Interest in non-Finalized Markets in this aggregation, in ETH.
 * **`numberOfMarketsWithThisTag`** (number) Number of Markets with this Tag in the corresponding Category.
 * **`openInterest`** (string) Sum of Open Interest in all Markets in this aggregation, in ETH.
@@ -646,7 +647,7 @@ Serves as an enum for the state of a Market.
 <a name="TimestampedPrice"></a>
 ### TimestampedPrice  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`price`** (string) Display (non-normalized) price, as a base-10 number.
 * **`amount`** (string) Display price, as a base-10 number.
 * **`timestamp`** (number) Unix timestamp for this price in seconds, as an integer.
@@ -654,7 +655,7 @@ Serves as an enum for the state of a Market.
 <a name="TradeCost"></a>
 ### TradeCost  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`cost`** (string) Wei (attoEther) value needed for this trade.
 * **`onChainAmount`** (string) On-chain number of Shares for this trade.
 * **`onChainPrice`** (string) On-chain price for this trade.
@@ -662,7 +663,7 @@ Serves as an enum for the state of a Market.
 <a name="TradingPosition"></a>
 ### TradingPosition  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`realized`** (string) Profit a user made for total historical positions which have _since been closed_ in a market outcome (i.e., `realized` is accrued profit for Shares a user previously owned).
 * **`unrealized`** (string) Percent profit a user would have on just their current `netPosition` if they were to close it at the last price for that Market Outcome. The last price is the most recent price paid by anyone trading on that Outcome.
 * **`total`** (string) `unrealized` plus `realized` (i.e., is the profit a user made on previously owned Shares in a Market Outcome, plus what they could make if they closed their current `netPosition` in that Outcome).
@@ -690,7 +691,7 @@ net position in that Market Outcome. This is a cashflow amount that the user rem
 <a name="UnclaimedFeeWindowInfo"></a>
 ### UnclaimedFeeWindowInfo  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`startTime`** (number) Unix timestamp when the Fee Window begins.
 * **`endTime`** (number) Unix timestamp when the Fee Window ends.
 * **`balance`** (string) Balance the user has Staked in the Fee Window, in attoREP.
@@ -699,7 +700,7 @@ net position in that Market Outcome. This is a cashflow amount that the user rem
 <a name="UserTrade"></a>
 ### UserTrade  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`transactionHash`** (string) Hash to look up the trade transaction receipt.
 * **`logIndex`** (number) Number of the log index position in the Ethereum block containing the trade transaction.
 * **`orderId`** (string) Unique ID for the Order, as a hexadecimal string.
@@ -721,7 +722,7 @@ net position in that Market Outcome. This is a cashflow amount that the user rem
 <a name="UserTradePositionsInfo"></a>
 ### UserTradePosition  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`tradingPositions`** (Array<TradingPosition>)  Per-Outcome TradingPosition, where unrealized profit is relative to an Outcome's last price (as traded by anyone).
 * **`tradingPositionsPerMarket`** (Array<MarketTradingPosition>)  Per-market aggregation of trading positions
 * **`tradingPositionsTotal`** (AggregatedTradingPosition|undefined)  Portfolio-level aggregation of all of the user's trading positions. Undefined if and only if `getUserTradingPositions` was filtered by marketId
@@ -730,7 +731,7 @@ net position in that Market Outcome. This is a cashflow amount that the user rem
 <a name="WebSocket"></a>
 ### WebSocket  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`binaryType`** (string) String indicating the type of binary data being transmitted by the connection. This should be either "blob" if DOM Blob objects are being used or "arraybuffer" if ArrayBuffer objects are being used.
 * **`bufferedAmount`** (number) Number of bytes of data that have been queued using calls to send() but not yet transmitted to the network. This value resets to zero once all queued data has been sent. This value does not reset to zero when the connection is closed; if send() continues to be called, this will continue to climb.
 * **`extensions`** (string) Extensions selected by the server. This is currently only the empty string or a list of extensions as negotiated by the connection.
@@ -745,7 +746,7 @@ net position in that Market Outcome. This is a cashflow amount that the user rem
 <a name="WsTransport"></a>
 ### WsTransport  (Object)
 
-#### **Properties:** 
+#### **Properties:**
 * **`address`** (string) Address to which the WebSocket should connect.
 * **`timeout`** (number) Number of milliseconds to wait before timing out.
 * **`messageHandler`** (function) Function used to dispatch RPC responses.

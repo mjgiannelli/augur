@@ -1,0 +1,212 @@
+---
+id: api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector
+title: WebsocketConnector
+sidebar_label: WebsocketConnector
+---
+
+[@augurproject/sdk](api-readme.md) > [[packages/augur-sdk/src/connector/ws-connector Module]](api-modules-packages-augur-sdk-src-connector-ws-connector-module.md) > [WebsocketConnector](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md)
+
+## Class
+
+## Hierarchy
+
+ [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md)
+
+**↳ WebsocketConnector**
+
+### Constructors
+
+* [constructor](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#constructor)
+
+### Properties
+
+* [endpoint](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#endpoint)
+* [socket](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#socket)
+* [subscriptions](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#subscriptions)
+
+### Methods
+
+* [bindTo](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#bindto)
+* [connect](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#connect)
+* [disconnect](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#disconnect)
+* [messageReceived](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#messagereceived)
+* [off](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#off)
+* [on](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md#on)
+
+---
+
+## Constructors
+
+<a id="constructor"></a>
+
+###  constructor
+
+⊕ **new WebsocketConnector**(endpoint: *`string`*): [WebsocketConnector](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md)
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:7](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L7)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| endpoint | `string` |
+
+**Returns:** [WebsocketConnector](api-classes-packages-augur-sdk-src-connector-ws-connector-websocketconnector.md)
+
+___
+
+## Properties
+
+<a id="endpoint"></a>
+
+###  endpoint
+
+**● endpoint**: *`string`*
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:9](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L9)*
+
+___
+<a id="socket"></a>
+
+### `<Private>` socket
+
+**● socket**: *`WebSocketAsPromised`*
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:7](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L7)*
+
+___
+<a id="subscriptions"></a>
+
+###  subscriptions
+
+**● subscriptions**: *`object`*
+
+*Inherited from [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[subscriptions](api-classes-packages-augur-sdk-src-connector-connector-connector.md#subscriptions)*
+
+*Defined in [packages/augur-sdk/src/connector/connector.ts:6](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/connector.ts#L6)*
+
+#### Type declaration
+
+[event: `string`]: `object`
+
+ callback: [Callback](api-modules-packages-augur-sdk-src-connector-connector-module.md#callback)
+
+ id: `string`
+
+___
+
+## Methods
+
+<a id="bindto"></a>
+
+###  bindTo
+
+▸ **bindTo**<`R`,`P`>(f: *`function`*): `function`
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[bindTo](api-classes-packages-augur-sdk-src-connector-connector-connector.md#bindto)*
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:51](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L51)*
+
+**Type parameters:**
+
+#### R 
+#### P 
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| f | `function` |
+
+**Returns:** `function`
+
+___
+<a id="connect"></a>
+
+###  connect
+
+▸ **connect**(ethNodeUrl: *`string`*, account?: *`string`*): `Promise`<`any`>
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[connect](api-classes-packages-augur-sdk-src-connector-connector-connector.md#connect)*
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:13](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L13)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| ethNodeUrl | `string` |
+| `Optional` account | `string` |
+
+**Returns:** `Promise`<`any`>
+
+___
+<a id="disconnect"></a>
+
+###  disconnect
+
+▸ **disconnect**(): `Promise`<`any`>
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[disconnect](api-classes-packages-augur-sdk-src-connector-connector-connector.md#disconnect)*
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:47](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L47)*
+
+**Returns:** `Promise`<`any`>
+
+___
+<a id="messagereceived"></a>
+
+###  messageReceived
+
+▸ **messageReceived**(message: *`any`*): `void`
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:39](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L39)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| message | `any` |
+
+**Returns:** `void`
+
+___
+<a id="off"></a>
+
+###  off
+
+▸ **off**(eventName: *[SubscriptionEventNames](api-enums-packages-augur-sdk-src-constants-subscriptioneventnames.md) \| `string`*): `Promise`<`void`>
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[off](api-classes-packages-augur-sdk-src-connector-connector-connector.md#off)*
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:62](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L62)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| eventName | [SubscriptionEventNames](api-enums-packages-augur-sdk-src-constants-subscriptioneventnames.md) \| `string` |
+
+**Returns:** `Promise`<`void`>
+
+___
+<a id="on"></a>
+
+###  on
+
+▸ **on**(eventName: *[SubscriptionEventNames](api-enums-packages-augur-sdk-src-constants-subscriptioneventnames.md) \| `string`*, callback: *[Callback](api-modules-packages-augur-sdk-src-connector-connector-module.md#callback)*): `Promise`<`void`>
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[on](api-classes-packages-augur-sdk-src-connector-connector-connector.md#on)*
+
+*Defined in [packages/augur-sdk/src/connector/ws-connector.ts:57](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/ws-connector.ts#L57)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| eventName | [SubscriptionEventNames](api-enums-packages-augur-sdk-src-constants-subscriptioneventnames.md) \| `string` |
+| callback | [Callback](api-modules-packages-augur-sdk-src-connector-connector-module.md#callback) |
+
+**Returns:** `Promise`<`void`>
+
+___
+

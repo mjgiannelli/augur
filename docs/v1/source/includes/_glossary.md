@@ -57,7 +57,7 @@ The heart of Augur is its Decentralized Oracle, which allows users and smart con
 
 ## Designated Report
 
-A Designated Report occurs when a [Designated Reporter](#designated-reporter) [Stakes](#designated-reporter-stake) [REP](#rep) on a particular [Outcome](#outcome) in a [Market](#market). This Outcome then becomes the [Tentative Outcome](#tentative-outcome) for the Market, and the Market changes to the [Waiting for the Next Fee Window to Begin Phase](#waiting-for-the-next-fee-window-to-begin-phase). 
+A Designated Report occurs when a [Designated Reporter](#designated-reporter) [Stakes](#designated-reporter-stake) [REP](#rep) on a particular [Outcome](#outcome) in a [Market](#market). This Outcome then becomes the [Tentative Outcome](#tentative-outcome) for the Market, and the Market changes to the [Waiting for the Next Fee Window to Begin Phase](#waiting-for-the-next-fee-window-to-begin-phase).
 
 ## Designated Reporter
 
@@ -154,7 +154,7 @@ When a [Market's](#market) [Designated Reporter](#designated-reporter) fails to 
 ## First Public Reporter
 
 The First Public Reporter is any user who [Stakes](#first-public-reporter-stake) [REP](#rep) on a [Tentative Outcome](#tentative-outcome) during the [Open Reporting Phase](#open-reporting-phase).
- 
+
 ## First Public Reporter Stake
 
 When a [Market's](#market) [Designated Reporter](#designated-reporter) fails to submit a [Designated Report](designated-report), and the [First Public Reporter](#first-public-reporter) submits a [Report](#report) instead, the [No-Show Bond](#no-show-bond) gets used to Stake on a [Tentative Outcome](#tentative-outcome). If that Tentative Outcome becomes the [Final Outcome](#final-outcome), the First Public Reporter will receive the No-Show Bond back.
@@ -204,6 +204,10 @@ If the [Outcome](#outcome) of a Market is Invalid, [Reporters](#reporters) can [
 
 Legacy [Reputation Tokens](#rep), or Legacy REP, are REP that exist in the [Legacy REP smart contract](https://github.com/AugurProject/augur-core/blob/master/source/contracts/LegacyReputationToken.sol) and have not been migrated to the [Reputation Token smart contract](https://github.com/AugurProject/augur-core/blob/master/source/contracts/reporting/ReputationToken.sol), for a particular [Universe](#universe). Legacy REP must be migrated to the Reputation Token smart contract by calling the `augur.api.ReputationToken.migrateFromLegacyReputationToken` function before they can be used within Augur.
 
+## Liquidity Token
+
+Each [Market](#market) has a Liquidity Token value for a given [Spread Percent](#spread-percent). These Liquidity Tokens are an accrued/running total revenue for [Complete Sets](#complete-set) sold into the [Order Book](#order-book).
+
 ## Long Position
 
 In Augur, opening a [Long Position](#long-position) in the [Outcome](#outcome) of a [Market](#market) means purchasing [Shares](#share) in that Outcome. Opening a Long Position costs (price per Share * number of Shares). For more information on trading, please refer to the [Trading](#trading) section.
@@ -244,7 +248,7 @@ During the very first [Fee Window](#fee-window) after launch, the No-Show Bond w
 
 ## Number of Ticks
 
-A [Market's](#market) Number of Ticks can be thought of as the number of possible prices, or [Ticks](#tick), between the [Minimum Display Price](#minimum-display-price) and [Maximum Display Price](#maximum-display-price) for that Market. It is also the amount of [attoETH](#atto-prefix) that must be escrowed with the Market contract to purchase a single [Complete Set](#complete-set) of indivisible [Shares](#share) for a Market. Each Outcome in the [Payout Set](#payout-set) of an [Invalid](#invalid-outcome) Market is set to the Number of Ticks divided by the number of Outcomes (in order to ensure that the holders of each type of [Share](#share) in the Market receive the same payout during [Settlement](#settlement)). 
+A [Market's](#market) Number of Ticks can be thought of as the number of possible prices, or [Ticks](#tick), between the [Minimum Display Price](#minimum-display-price) and [Maximum Display Price](#maximum-display-price) for that Market. It is also the amount of [attoETH](#atto-prefix) that must be escrowed with the Market contract to purchase a single [Complete Set](#complete-set) of indivisible [Shares](#share) for a Market. Each Outcome in the [Payout Set](#payout-set) of an [Invalid](#invalid-outcome) Market is set to the Number of Ticks divided by the number of Outcomes (in order to ensure that the holders of each type of [Share](#share) in the Market receive the same payout during [Settlement](#settlement)).
 
 After Market [Finalization](#finalized-market), each winning Share can be Settled by sending it to the Market contract in exchange for an amount of attoETH equal to the Number of Ticks. In the event that the Market Finalizes as Invalid, each Share of the Market can be returned to the Market contract in exchange for an amount of attoETH equal to (Number of Ticks / Number of Outcomes). In cases where (Number of Ticks / Number of Outcomes) does not equal a whole number, the remainder will be subtracted equally from each Outcome and left on the Market contract as "dust" ETH. For example, if a 3-Outcome Market with no Creator Fee resolves to Invalid, the Payout Set would be [3333, 3333, 3333].
 
@@ -312,7 +316,7 @@ The Payout Distribution Hash is a SHA-3 hash of the [Payout Set](#payout-set). W
 
 ## Payout Set
 
-A Payout Set, sometimes referred to as "Payout Numerators" in Augur's smart contract functions, is an array with a length equal to the number of [Outcomes](#outcome) for a [Market](#market). Each value in the array is required to be 0 or a positive number that does not exceed the [Number of Ticks](#number-of-ticks) for the Market. Further, the total sum of all the values contained within the Payout Set array should be equal to the Number of Ticks for the Market. 
+A Payout Set, sometimes referred to as "Payout Numerators" in Augur's smart contract functions, is an array with a length equal to the number of [Outcomes](#outcome) for a [Market](#market). Each value in the array is required to be 0 or a positive number that does not exceed the [Number of Ticks](#number-of-ticks) for the Market. Further, the total sum of all the values contained within the Payout Set array should be equal to the Number of Ticks for the Market.
 
 For example, in a [Yes/No Market](#yes-no-market) with 1000 [Ticks](#tick), a [Report](#report) that Stakes [REP](#rep) on Outcome `0` would submit a Payout Set that looks like `[1000, 0]`. Payout Sets are a breakdown of the Payout Distribution, or how Markets should pay out for each [Share](#share) when [Finalized](#finalized-market). In the example above, the Payout Numerators are the values 1000 and 0, and only [Shares](#share) of Outcome 0 (index 0 of the array) will pay out on the Finalized Market because the Payout Numerator for Outcome 1 is `0`. Valid Payout Sets are hashed using the SHA-3 hashing algorithm, which is a [Payout Distribution Hash](#payout-distribution-hash).
 
@@ -349,7 +353,7 @@ A Reporter is a [REP](#rep) holder who Stakes [REP](#rep) on an [Outcome](#outco
 
 ## Reporting Fee
 
-The Reporting Fee is used to help pay for Augur's [Decentralized Oracle](#decentralized-oracle) system. When [Shares](#share) are [Settled](#settlement) (i.e., destroyed), before paying out to the Share holders, Augur will extract [Settlement Fees](#settlement-fees) in ETH. These Settlement Fees include the [Creator Fee](#creator-fee) and the Reporting Fee. 
+The Reporting Fee is used to help pay for Augur's [Decentralized Oracle](#decentralized-oracle) system. When [Shares](#share) are [Settled](#settlement) (i.e., destroyed), before paying out to the Share holders, Augur will extract [Settlement Fees](#settlement-fees) in ETH. These Settlement Fees include the [Creator Fee](#creator-fee) and the Reporting Fee.
 
 The Reporting Fee is a dynamic amount based on the price of [REP](#rep) and the value of the [Open Interest](#open-interest) across all of Augur's [Markets](#market). Augur sets the Reporting Fee so as to target a REP market cap that is 7.5 times the value of the [Open Interest](#open-interest) across all of Augur's markets. This means the [Reporting Fee](#reporting-fee) will go up if the market cap of REP is not sufficiently high (but will never be higher than 33.3%) and will go down if it is higher than this target.
 

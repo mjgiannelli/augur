@@ -1,0 +1,183 @@
+---
+id: api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector
+title: HTTPConnector
+sidebar_label: HTTPConnector
+---
+
+[@augurproject/sdk](api-readme.md) > [[packages/augur-sdk/src/connector/http-connector Module]](api-modules-packages-augur-sdk-src-connector-http-connector-module.md) > [HTTPConnector](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md)
+
+## Class
+
+## Hierarchy
+
+ [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md)
+
+**↳ HTTPConnector**
+
+### Constructors
+
+* [constructor](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md#constructor)
+
+### Properties
+
+* [endpoint](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md#endpoint)
+* [subscriptions](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md#subscriptions)
+
+### Methods
+
+* [bindTo](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md#bindto)
+* [connect](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md#connect)
+* [disconnect](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md#disconnect)
+* [off](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md#off)
+* [on](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md#on)
+
+---
+
+## Constructors
+
+<a id="constructor"></a>
+
+###  constructor
+
+⊕ **new HTTPConnector**(endpoint: *`string`*): [HTTPConnector](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md)
+
+*Defined in [packages/augur-sdk/src/connector/http-connector.ts:5](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/http-connector.ts#L5)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| endpoint | `string` |
+
+**Returns:** [HTTPConnector](api-classes-packages-augur-sdk-src-connector-http-connector-httpconnector.md)
+
+___
+
+## Properties
+
+<a id="endpoint"></a>
+
+###  endpoint
+
+**● endpoint**: *`string`*
+
+*Defined in [packages/augur-sdk/src/connector/http-connector.ts:7](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/http-connector.ts#L7)*
+
+___
+<a id="subscriptions"></a>
+
+###  subscriptions
+
+**● subscriptions**: *`object`*
+
+*Inherited from [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[subscriptions](api-classes-packages-augur-sdk-src-connector-connector-connector.md#subscriptions)*
+
+*Defined in [packages/augur-sdk/src/connector/connector.ts:6](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/connector.ts#L6)*
+
+#### Type declaration
+
+[event: `string`]: `object`
+
+ callback: [Callback](api-modules-packages-augur-sdk-src-connector-connector-module.md#callback)
+
+ id: `string`
+
+___
+
+## Methods
+
+<a id="bindto"></a>
+
+###  bindTo
+
+▸ **bindTo**<`R`,`P`>(f: *`function`*): `function`
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[bindTo](api-classes-packages-augur-sdk-src-connector-connector-connector.md#bindto)*
+
+*Defined in [packages/augur-sdk/src/connector/http-connector.ts:19](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/http-connector.ts#L19)*
+
+**Type parameters:**
+
+#### R 
+#### P 
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| f | `function` |
+
+**Returns:** `function`
+
+___
+<a id="connect"></a>
+
+###  connect
+
+▸ **connect**(params?: *`any`*): `Promise`<`any`>
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[connect](api-classes-packages-augur-sdk-src-connector-connector-connector.md#connect)*
+
+*Defined in [packages/augur-sdk/src/connector/http-connector.ts:11](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/http-connector.ts#L11)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| `Optional` params | `any` |
+
+**Returns:** `Promise`<`any`>
+
+___
+<a id="disconnect"></a>
+
+###  disconnect
+
+▸ **disconnect**(): `Promise`<`any`>
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[disconnect](api-classes-packages-augur-sdk-src-connector-connector-connector.md#disconnect)*
+
+*Defined in [packages/augur-sdk/src/connector/http-connector.ts:15](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/http-connector.ts#L15)*
+
+**Returns:** `Promise`<`any`>
+
+___
+<a id="off"></a>
+
+###  off
+
+▸ **off**(eventName: *[SubscriptionEventNames](api-enums-packages-augur-sdk-src-constants-subscriptioneventnames.md) \| `string`*): `Promise`<`void`>
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[off](api-classes-packages-augur-sdk-src-connector-connector-connector.md#off)*
+
+*Defined in [packages/augur-sdk/src/connector/http-connector.ts:30](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/http-connector.ts#L30)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| eventName | [SubscriptionEventNames](api-enums-packages-augur-sdk-src-constants-subscriptioneventnames.md) \| `string` |
+
+**Returns:** `Promise`<`void`>
+
+___
+<a id="on"></a>
+
+###  on
+
+▸ **on**(eventName: *[SubscriptionEventNames](api-enums-packages-augur-sdk-src-constants-subscriptioneventnames.md) \| `string`*, callback: *[Callback](api-modules-packages-augur-sdk-src-connector-connector-module.md#callback)*): `Promise`<`void`>
+
+*Overrides [Connector](api-classes-packages-augur-sdk-src-connector-connector-connector.md).[on](api-classes-packages-augur-sdk-src-connector-connector-connector.md#on)*
+
+*Defined in [packages/augur-sdk/src/connector/http-connector.ts:29](https://github.com/AugurProject/augur/blob/27cf7214d2/packages/augur-sdk/src/connector/http-connector.ts#L29)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| eventName | [SubscriptionEventNames](api-enums-packages-augur-sdk-src-constants-subscriptioneventnames.md) \| `string` |
+| callback | [Callback](api-modules-packages-augur-sdk-src-connector-connector-module.md#callback) |
+
+**Returns:** `Promise`<`void`>
+
+___
+
