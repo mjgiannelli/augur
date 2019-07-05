@@ -214,8 +214,9 @@ jobs:
           MONO_ROOT=../../
           CONTRACT_SHA=$(cd packages/augur-tools/ && node scripts/get-contract-hashes.js)
           # Build and copy to merge with current address.json/upload-block-numbers.json
+          cd packages/augur-tools
           docker build --no-cache -f docker-builder/Dockerfile --build-arg normal_time=$(NORMAL_TIME) --build-arg network_id=$(NETWORK_ID) -t $(IMAGE_NAME) $MONO_ROOT
-          cd packages/augur-tools && ./scripts/copy-docker-files.sh $(IMAGE_NAME)
+          ./scripts/copy-docker-files.sh $(IMAGE_NAME)
           docker tag $(IMAGE_NAME) $(IMAGE_NAME):$CONTRACT_SHA
 
 
