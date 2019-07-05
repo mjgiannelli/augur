@@ -221,6 +221,7 @@ jobs:
 
   - job: Docker_populated_geth_images
     dependsOn:
+    - Build_Core_Docker
     - PreFlightCheck
     condition: |
       and
