@@ -221,7 +221,6 @@ jobs:
 
   - job: Docker_populated_geth_images
     dependsOn:
-    - Test_Augur_Core
     - PreFlightCheck
     condition: |
       and
