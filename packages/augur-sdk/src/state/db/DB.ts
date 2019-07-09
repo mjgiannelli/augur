@@ -98,11 +98,9 @@ export class DB {
    * @param {number} blockstreamDelay Number of blocks by which to delay blockstream
    * @param {number} defaultStartSyncBlockNumber Block number at which to start sycing (if no higher block number has been synced)
    * @param {Array<string>} trackedUsers Array of user addresses for which to sync user-specific events
-   * @param {Array<string>} genericEventNames Array of names for generic event types
-   * @param {Array<DerivedDBConfiguration>} derivedDBConfigurations Array of custom event objects
-   * @param {Array<UserSpecificDBConfiguration>} userSpecificDBConfiguration Array of user-specific event objects
-   * @param {PouchDBFactoryType} pouchDBFactory Factory function generatin PouchDB instance
-   * @param {IBlockAndLogStreamerListener} blockAndLogStreamerListener Stream listener for blocks and logs
+   * @param {Augur} augur sdk instance
+   * @param {PouchDBFactoryType} pouchDBFactory instance
+   * @param {IBlockAndLogStreamerListener} blockAndLogStreamerListener instance
    * @returns {Promise<DB>} Promise to a DB controller object
    */
   public static createAndInitializeDB(networkId: number, blockstreamDelay: number, defaultStartSyncBlockNumber: number, trackedUsers: Array<string>, augur: Augur, pouchDBFactory: PouchDBFactoryType, blockAndLogStreamerListener: IBlockAndLogStreamerListener): Promise<DB> {
@@ -121,8 +119,6 @@ export class DB {
    * @param {number} blockstreamDelay Number of blocks by which to delay blockstream
    * @param {number} defaultStartSyncBlockNumber Block number at which to start sycing (if no higher block number has been synced)
    * @param {Array<string>} trackedUsers Array of user addresses for which to sync user-specific events
-   * @param {Array<string>} genericEventNames Array of names for generic event types
-   * @param {Array<UserSpecificDBConfiguration>} userSpecificDBConfiguration Array of user-specific event objects
    * @param blockAndLogStreamerListener
    * @return {Promise<void>}
    */
