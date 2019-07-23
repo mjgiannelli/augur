@@ -12,9 +12,11 @@
       {
         "enums": true,
         "functions": {"visibilities": ["exported"]},
-        "methods": {"privacies": "private"},
+        "methods": {
+          "privacies": ["public"]
+        },
         "properties": {
-          "privacies": "private",
+          "privacies": ["public"],
           "existence": ["inheritdoc"]
         },
         "classes": {"visibilities": ["exported"]}
