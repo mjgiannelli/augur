@@ -1,0 +1,24 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "gts/tslint.json"
+  ],
+  "rules": {
+    "completed-docs": [
+      true,
+      {
+        "enums": true,
+        "functions": {"visibilities": ["exported"]},
+        "methods": {"privacies": "private"},
+        "properties": {
+          "privacies": "private",
+          "existence": ["inheritdoc"]
+        },
+        "classes": {"visibilities": ["exported"]}
+      }
+    ]
+  }
+}
