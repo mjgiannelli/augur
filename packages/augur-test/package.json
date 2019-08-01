@@ -58,5 +58,6 @@
   "resolutions": {
     "**/sha3": "2.0.1",
     "**/memdown": "4.0.0"
-  }
+  },
+  "gitHead": "106468e1642fc4a800691cba4fc11a58ac2b0d2c"
 }
