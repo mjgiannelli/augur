@@ -40,7 +40,6 @@
     "@augurproject/artifacts": "^10.0.1",
     "@augurproject/core": "^10.0.1",
     "@augurproject/ethersjs-provider": "^10.0.1",
-    "@augurproject/sdk": "^10.0.1",
     "@types/async": "3.0.0",
     "@types/cors": "2.8.4",
     "@types/express": "4.16.1",

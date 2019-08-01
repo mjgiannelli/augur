@@ -5,9 +5,6 @@
   "author": "Augur Team <team@augur.net>",
   "license": "MIT",
   "main": "build",
-  "scripts": {
-    "build": "tsc -b"
-  },
   "publishConfig": {
     "directory": "build"
   }
