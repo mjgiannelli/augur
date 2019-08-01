@@ -28,7 +28,7 @@
   "homepage": "https://github.com/AugurProject/augur#readme",
   "dependencies": {
     "bignumber.js": "6.0.0",
-    "contract-dependencies": "1.0.0-0",
+    "contract-dependencies": "10.0.1",
     "ethers": "4.0.24"
   },
   "devDependencies": {
