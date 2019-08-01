@@ -14,16 +14,16 @@ import { Account } from "../constants";
 import { ContractAddresses } from "@augurproject/artifacts";
 import { BigNumber } from "bignumber.js";
 import { formatBytes32String } from "ethers/utils";
-import { Getters } from "@augurproject/sdk";
+import { Getters, Connectors } from "@augurproject/sdk";
 
 
 const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 const ETERNAL_APPROVAL_VALUE = new BigNumber("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // 2^256 - 1
 export class ContractAPI {
-  static async userWrapper(account: Account, provider: EthersProvider, addresses: ContractAddresses) {
+  static async userWrapper(account: Account, provider: EthersProvider, addresses: ContractAddresses, connector: Connectors.SEOConnector = undefined) {
     const signer = await makeSigner(account, provider);
     const dependencies = makeDependencies(account, provider, signer);
-    const augur = await Augur.create(provider, dependencies, addresses);
+    const augur = await Augur.create(provider, dependencies, addresses, connector);
 
     return new ContractAPI(augur, provider, account);
   }
@@ -262,8 +262,8 @@ export class ContractAPI {
     await this.augur.contracts.completeSets.publicSellCompleteSets(market.address, amount);
   }
 
-  async contribute(market: ContractInterfaces.Market, payoutNumerators: BigNumber[], amount: BigNumber): Promise<void> {
-    await market.contribute(payoutNumerators, amount, "");
+  async contribute(market: ContractInterfaces.Market, payoutNumerators: BigNumber[], amount: BigNumber, description: string = ""): Promise<void> {
+    await market.contribute(payoutNumerators, amount, description);
   }
 
   // TODO Update this to handle case where crowdsourcer is 0 address (hasn't gotten any contributions)
