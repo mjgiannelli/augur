@@ -100,12 +100,12 @@ export const loadMarketsByFilter = (
     universe: universe.id,
     // category: filterOptions.category,
     // search: filterOptions.search,
-    maxFee: filterOptions.maxFee,
+    // maxFee: filterOptions.maxFee,
     // hasOrders: filterOptions.hasOrders,
-    limit: 100,
-    offset: 0,
-    reportingStates,
-    ...sort
+    // limit: 100,
+    // offset: 0,
+    // reportingStates,
+    // ...sort
   };
 
   const markets = await augur.getMarkets({ ...params });
