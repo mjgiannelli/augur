@@ -48,6 +48,6 @@ export async function create(ethNodeUrl: string, account?: string, dbArgs: Datab
 
 export async function buildAPI(ethNodeUrl: string, account?: string, dbArgs: DatabaseConfiguration = {}): Promise<API> {
   const { augur, blockAndLogStreamerListener, db } = await buildDeps(ethNodeUrl, account, dbArgs);
-
+  console.log("BUILD API FROM CREATE-API");
   return new API(augur, db);
 }

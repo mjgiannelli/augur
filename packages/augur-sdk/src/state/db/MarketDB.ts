@@ -64,12 +64,14 @@ export class MarketDB extends DerivedDB {
   private readonly events = new Subscriptions(augurEmitter);
   private flexSearchIndex: Index<MarketFields>;
   readonly liquiditySpreads = [10, 15, 20, 100];
+  public id : number;
 
   constructor(db: DB, networkId: number, augur: Augur) {
     super(db, networkId, "Markets", ["MarketCreated", "MarketVolumeChanged", "MarketOIChanged"], ["market"]);
 
     this.augur = augur;
-
+    this.id = new Date().getTime();
+    console.log("ID OF market db constructure", this.id);
     this.events.subscribe('DerivedDB:updated:CurrentOrders', this.syncOrderBooks);
 
     this.flexSearchIndex = flexSearch.create(
@@ -239,14 +241,17 @@ export class MarketDB extends DerivedDB {
   }
 
   async search(query: string, options?: SearchOptions): Promise<Array<SearchResults<MarketFields>>> {
+    console.log("ID OF search", this.id);
     return this.flexSearchIndex.search(query, options);
   }
 
   async where(whereObj: {[key: string]: string}): Promise<Array<SearchResults<MarketFields>>> {
+    console.log("ID OF where", this.id);
     return this.flexSearchIndex.where(whereObj);
   }
 
   private async syncFullTextSearch(): Promise<void> {
+    console.log("ID OF allDocs", this.id);
     if (this.flexSearchIndex) {
       const previousDocumentEntries = await this.db.allDocs({ include_docs: true });
 
@@ -289,7 +294,7 @@ export class MarketDB extends DerivedDB {
               resolutionSource = info.resolutionSource ? info.resolutionSource : "";
               _scalarDenomination = info._scalarDenomination ? info._scalarDenomination : "";
             }
-
+            console.log("ID OF adding indexes", this.id);
             this.flexSearchIndex.add({
               id: row.id,
               market,

@@ -16,7 +16,7 @@ ctx.addEventListener("message", async (message: any) => {
     ctx.postMessage({ subscribed: message.data.subscribe, subscription });
 
   } else if(message.data.method === "start") {
-    await Sync.start(message.data.ethNodeUrl, message.data.account);
+    // await Sync.start(message.data.ethNodeUrl, message.data.account);
 
   } else {
     subscriptions.unsubscribe(message.data.unsubscribe);

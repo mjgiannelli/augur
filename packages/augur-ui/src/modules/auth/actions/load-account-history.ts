@@ -70,6 +70,7 @@ function loadTransactions(
       )
     );
 
+    console.log("Loading Markets for User", marketIds);
     dispatch(getWinningBalance(uniqMarketIds));
     dispatch(loadMarketsInfoIfNotLoaded(uniqMarketIds, () => {
       callback(null);

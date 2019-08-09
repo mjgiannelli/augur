@@ -1,5 +1,5 @@
 import RunWorker from "./Sync.worker";
-import { buildAPI, Connectors, Events, Getters, SubscriptionEventName } from "@augurproject/sdk";
+import { Sync, Getters, Connectors, Events, SubscriptionEventName } from "@augurproject/sdk";
 
 export class WebWorkerConnector extends Connectors.BaseConnector {
   private api: Promise<Getters.API>;
@@ -13,7 +13,8 @@ export class WebWorkerConnector extends Connectors.BaseConnector {
       account
     });
 
-    this.api = buildAPI(ethNodeUrl, account);
+    this.api = Sync.start(ethNodeUrl, account);
+    //Sync.start(message.data.ethNodeUrl, message.data.account);
 
     this.worker.onmessage = (event: MessageEvent) => {
       try {

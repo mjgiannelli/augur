@@ -248,10 +248,12 @@ export class DB {
   }
 
   async search(query: string, options?: SearchOptions): Promise<Array<SearchResults<MarketFields>>> {
+    console.log("search market db id", this.marketDatabase.id);
     return this.marketDatabase.search(query, options);
   }
 
   async where(whereObj): Promise<Array<SearchResults<MarketFields>>> {
+    console.log("search market db id", this.marketDatabase.id);
     return this.marketDatabase.where(whereObj);
   }
 
