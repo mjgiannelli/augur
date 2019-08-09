@@ -26,7 +26,6 @@ const sortOptions = [
   { value: MARKET_SORT_PARAMS.END_DATE, label: "End Time" },
   { value: MARKET_SORT_PARAMS.RECENTLY_TRADED, label: "Recently Traded" },
   { value: MARKET_SORT_PARAMS.VOLUME, label: "Volume" },
-  { value: MARKET_SORT_PARAMS.CREATOR_FEE_RATE, label: "Settlement Fee" },
   { value: MARKET_SORT_PARAMS.OPEN_INTEREST, label: "Open Interest" },
 ];
 

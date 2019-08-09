@@ -197,7 +197,6 @@ export enum MARKET_SORT_PARAMS {
   CREATION_TIME = 'creationTime',
   END_DATE = 'endTime',
   RECENTLY_TRADED = 'recentlyTraded',
-  CREATOR_FEE_RATE = 'marketCreatorFeeRate',
   OPEN_INTEREST = 'openInterest',
 }
 
