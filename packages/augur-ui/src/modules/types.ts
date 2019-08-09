@@ -25,17 +25,13 @@ export interface Alert {
 
 export interface DateFormattedObject {
   value: Date;
-  simpleDate: string;
   formatted: string;
   formattedShortDate: string;
   formattedShortTime: string;
   formattedShort: string;
-  formattedLocal: string;
-  formattedLocalShortDate: string;
   formattedLocalShort: string;
   formattedLocalShortTime: string;
   formattedLocalShortDateSecondary: string;
-  full: string;
   timestamp: number;
   utcLocalOffset: number;
   clockTimeLocal: string;
@@ -348,44 +344,6 @@ export interface Draft {
   marketType: string;
   detailsText: string;
   categories: Array<string>;
-  settlementFee: number;
-  affiliateFee: number;
-  orderBook: {[outcome: number]: Array<LiquidityOrder> };
-  orderBookSorted: {[outcome: number]: Array<LiquidityOrder> };
-  initialLiquidityDai: any; // TODO: big number type
-  initialLiquidityGas: any; // TODO: big number type
-  creationError: string;
-}
-
-export interface Draft {
-  uniqueId: number;
-  created: number;
-  updated: number;
-  isValid: boolean;
-  validations: Array<
-    NewMarketPropertiesValidations | NewMarketPropertyValidations
-  >;
-  currentStep: number;
-  type: string;
-  outcomes: Array<string>;
-  scalarSmallNum: string;
-  scalarBigNum: string;
-  scalarDenomination: string;
-  description: string;
-  expirySourceType: string;
-  expirySource: string;
-  designatedReporterType: string;
-  designatedReporterAddress: string;
-  minPrice: string;
-  maxPrice: string;
-  endTime: number;
-  tickSize: string;
-  hour: string;
-  minute: string;
-  meridiem: string;
-  marketType: string;
-  detailsText: string;
-  category: string;
   settlementFee: number;
   affiliateFee: number;
   orderBook: {[outcome: number]: Array<LiquidityOrder> };
