@@ -15,7 +15,14 @@ function* infiniteSequence() {
 }
 const iterator = infiniteSequence();
 
+interface OutstandingRequest {
+  id: number;
+  resolve: (value) => void;
+  reject: (reason) => void;
+}
+
 export class WebWorkerConnector extends Connectors.BaseConnector {
+  private outstandingRequests: OutstandingRequest[] = [];
   private worker: any;
   subscriptions: { [event: string]: { id: string, callback: Callback } } = {};
 
@@ -37,6 +44,12 @@ console.log("In WebWorkerConnector.onMessage");
 console.log(event);
       try {
         const eventData = JSON.parse(event.data);
+        // check for outstanding request
+        this.outstandingRequests.filter((r) => r.id === eventData.id).forEach((r) => {
+          // Handle error conditions here.
+          r.resolve(eventData.result);
+        });
+
         if (eventData.result && eventData.result.subscribed) {
 console.log("Subscribed to", eventData.result.subscribed);
           this.subscriptions[eventData.result.subscribed].id = eventData.result.subscription;
@@ -57,6 +70,7 @@ console.log("Subscribed to", eventData.result.subscribed);
   }
 
   messageReceived(message: any) {
+
 console.log("In WebWorkerConnector.messageReceived");
 console.log(message);
     if (message.result && message.result.result) {
@@ -76,11 +90,19 @@ console.log(this.subscriptions);
     f: (db: any, augur: any, params: P) => Promise<R>
   ): (params: P) => Promise<R> {
     return async (params: P): Promise<R> => {
-      return this.worker.postMessage({
-        id: iterator.next().value,
-        method: f.name,
-        params,
-        jsonrpc: '2.0',
+      return new Promise<R>((resolve, reject)=>{
+        const id = iterator.next().value;
+        this.outstandingRequests.push({
+          id,
+          resolve,
+          reject,
+        });
+        this.worker.postMessage({
+          id,
+          method: f.name,
+          params,
+          jsonrpc: '2.0',
+        });
       });
     };
   }
