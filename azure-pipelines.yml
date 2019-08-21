@@ -78,12 +78,15 @@ jobs:
       - task: NodeTool@0
         inputs:
           versionSpec: $(node_version)
+      - script: |
+          ls -la /tmp/
       - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1
         inputs:
           keyfile: '**/yarn.lock, !**/node_modules/**/yarn.lock, !**/.*/**/yarn.lock'
           targetfolder: '**/node_modules, !**/node_modules/**/node_modules'
           vstsFeed: npmPackages
       - script: |
+          ls -la /tmp/
           yarn install
         displayName: Install Dependencies
       - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
@@ -97,10 +100,12 @@ jobs:
         displayName: yarn build
       - bash: |
           set -euo pipefail
+          ls -la /tmp/
           yarn workspace @augurproject/ui build
         displayName: ui build
       - bash: |
           set -euo pipefail
+          ls -la /tmp/
           yarn test --runInBand --ci --reporters=default --reporters=jest-junit
         displayName: yarn test
       - bash: |
