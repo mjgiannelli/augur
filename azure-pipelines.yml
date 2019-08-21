@@ -103,14 +103,19 @@ jobs:
           ls -la /tmp/
           yarn workspace @augurproject/ui build
         displayName: ui build
+      - script: |
+          ls -la /tmp/
       - bash: |
           set -euo pipefail
-          ls -la /tmp/
-          yarn test --runInBand --ci --reporters=default --reporters=jest-junit
+          yarn test --runInBand --ci --reporters=default --reporters=jest-junit --testPathPattern=GnosisSafe.test.ts
         displayName: yarn test
+      - script: |
+          ls -la /tmp/
       - bash: |
           set -euo pipefail
           yarn workspace @augurproject/sdk test
+      - script: |
+          ls -la /tmp/
       - task: PublishTestResults@2
         condition: succeededOrFailed()
         inputs:
