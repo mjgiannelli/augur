@@ -25,7 +25,8 @@ import {
   QUINTILLION,
   convertOnChainPriceToDisplayPrice,
   convertOnChainAmountToDisplayAmount,
-} from '../../index';
+  SECONDS_IN_A_DAY
+} from "../../index";
 import { calculatePayoutNumeratorsValue } from '../../utils';
 
 import * as _ from 'lodash';
@@ -73,8 +74,6 @@ const getMarketsParamsSpecific = t.intersection([
     sortBy: getMarketsSortBy,
   }),
 ]);
-
-export const SECONDS_IN_A_DAY = new BigNumber(86400, 10);
 
 export interface MarketListMetaCategories {
   [key: string]: {
@@ -596,14 +595,14 @@ export class Markets {
       }
     }
 
+    const meta = getMarketsMeta(marketsResults, filteredOutCount);
+
     // Sort & limit markets
     marketsResults = _.sortBy(marketsResults, [params.sortBy]);
     if (params.isSortDescending) {
       marketsResults = marketsResults.reverse();
     }
     marketsResults = marketsResults.slice(params.offset, params.offset + params.limit);
-
-    const meta = getMarketsMeta(marketsResults, filteredOutCount);
 
     // Get markets info to return
     const marketsInfo = await Markets.getMarketsInfo(
