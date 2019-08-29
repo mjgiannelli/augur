@@ -141,3 +141,7 @@ export const EULERS_NUMBER = 2.71828182845905;
 export const MINIMUM_INVALID_ORDER_VALUE_IN_ATTO_DAI = new BigNumber(10).multipliedBy(10**18); // $10 minimum profit on selling Invalid for the filter to trigger
 
 export const SECONDS_IN_YEAR = new BigNumber(60).multipliedBy(60).multipliedBy(24).multipliedBy(365);
+
+export const SECONDS_IN_DAY = new BigNumber(60).multipliedBy(60).multipliedBy(24);
+
+export const SECONDS_IN_HOUR = new BigNumber(60).multipliedBy(60);

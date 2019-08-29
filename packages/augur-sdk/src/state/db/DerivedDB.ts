@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 import { AbstractDB, BaseDocument } from './AbstractDB';
 import { SyncStatus } from './SyncStatus';
 import { Log, ParsedLog } from '@augurproject/types';
-import { Augur } from '../../Augur';
 import { DB } from './DB';
 import { sleep } from '../utils/utils';
 import { augurEmitter } from '../../events';
@@ -162,7 +161,7 @@ export class DerivedDB extends AbstractDB {
         augurEmitter.emit(`DerivedDB:updated:${this.name}`);
       }
     } else {
-      throw new Error(`Unable to add new block`);
+      throw new Error('Unable to add new block');
     }
 
     return blocknumber;

@@ -1,5 +1,4 @@
-import { AbstractDB, PouchDBFactoryType } from "./AbstractDB";
-import Upsert from "pouchdb-upsert";
+import { AbstractDB, PouchDBFactoryType } from './AbstractDB';
 
 interface SyncDocument {
   _id?: string;
@@ -12,18 +11,18 @@ export class SyncStatus extends AbstractDB {
   readonly defaultStartSyncBlockNumber: number;
 
   constructor(networkId: number, defaultStartSyncBlockNumber: number, dbFactory: PouchDBFactoryType) {
-    super(networkId, networkId + "-SyncStatus", dbFactory);
+    super(networkId, networkId + '-SyncStatus', dbFactory);
     this.defaultStartSyncBlockNumber = defaultStartSyncBlockNumber;
 
     this.db.createIndex({
       index: {
-        fields: ["syncing"],
+        fields: ['syncing'],
       },
     });
 
     this.db.createIndex({
       index: {
-        fields: ["blockNumber"],
+        fields: ['blockNumber'],
       },
     });
   }
@@ -51,7 +50,7 @@ export class SyncStatus extends AbstractDB {
         blockNumber: { $gt: 0 },
       },
       sort: [{ blockNumber: 'asc' }],
-      fields: ["blockNumber", "syncing", "_id"],
+      fields: ['blockNumber', 'syncing', '_id'],
     });
 
     if (lowestBlock.docs && lowestBlock.docs.length > 0) {

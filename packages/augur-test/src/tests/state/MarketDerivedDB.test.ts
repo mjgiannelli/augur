@@ -46,7 +46,7 @@ test("Bulksync Doc merge update", async () => {
 
   await db.syncStatus.setHighestSyncBlock(marketDBName, 1, true);
 
-  const marketsDB = await db.getDerivedDatabase(marketDBName);
+  const marketsDB = db.getDerivedDatabase(marketDBName);
 
   await marketsDB.handleMergeEvent(2, blockLogs as unknown[] as ParsedLog[], true);
 
@@ -95,7 +95,7 @@ test("Blockstream Doc merge update", async () => {
 
   await db.sync(augur, mock.constants.chunkSize, mock.constants.blockstreamDelay);
 
-  const marketsDB = await db.getDerivedDatabase(mock.constants.networkId + "-Markets");
+  const marketsDB = db.getDerivedDatabase(mock.constants.networkId + "-Markets");
   const docs = await marketsDB.allDocs();
   expect(docs.total_rows).toEqual(2);
   const doc = docs.rows[0];
